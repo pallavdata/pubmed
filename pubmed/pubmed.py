@@ -240,15 +240,18 @@ class Fetch:
         elif filename.endswith(".xlsx"):
             self.__get_df(data).to_excel(filename, index=False)
             logger.info(f"saved file: location - {filename}")
+            print(f"saved file: location - {filename}")
             return
         elif filename.endswith(".csv"):
             self.__get_df(data).to_csv(filename, index=False)
             logger.info(f"saved file: location - {filename}")
+            print(f"saved file: location - {filename}")
             return
         elif filename.endswith(".json"):
             with open(filename, "w",encoding="utf-8") as f:
                 json.dump(self.get_metadata(), f, ensure_ascii=True)
             logger.info(f"saved file: location - {filename}")
+            print(f"saved file: location - {filename}")
             return
         logger.warning('Extension Supported: .json, .csv and .xlsx')
         print(data)
