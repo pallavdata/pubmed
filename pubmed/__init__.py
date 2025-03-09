@@ -1,15 +1,26 @@
 import logging
+from .pubmed import Fetch
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
 
-console_handler = logging.StreamHandler()
-console_handler.setLevel(logging.DEBUG)
+def log(debug):
+    logger = logging.getLogger(__name__)
+    if not debug:
+        logger.disabled = True
+    else:
+        logger.setLevel(logging.DEBUG)
 
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s',  datefmt='%d/%m/%Y %H:%M')
-console_handler.setFormatter(formatter)
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(logging.DEBUG)
 
-if not logger.hasHandlers():
-    logger.addHandler(console_handler)
+        formatter = logging.Formatter(
+            '%(asctime)s - %(name)s - %(levelname)s - %(message)s',  datefmt='%d/%m/%Y %H:%M')
+        console_handler.setFormatter(formatter)
 
-logger.info("Starting logging ...........")
+        if not logger.hasHandlers():
+            logger.addHandler(console_handler)
+
+        logger.info("Starting logging ...........")
+
+
+def fetch(q, force_article=False, count=None):
+    return Fetch(q, force_article, count)
